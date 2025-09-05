@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Presence Form</title>
+  <meta charset="UTF-8">
+  <title>Presence Form</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      text-align: center;
+    }
+    input, button {
+      margin: 10px 0;
+      padding: 8px;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-<h2>Введите текст</h2>
-<form id="presenceForm">
-  <input type="text" name="userText" placeholder="Ваш текст" required>
-  <button type="submit">Отправить</button>
-</form>
-<p id="status"></p>
+  <h2>Введите текст</h2>
 
-<script>
-const params = new URLSearchParams(window.location.search);
-const token = params.get('token'); // извлекаем ENCRYPTEDSTRING
+  <form 
+    action="https://docs.google.com/forms/d/e/1FAIpQLSfTH9XafJd3VXx__oHhxUAtIPjzGHwDeI0uAWdknEyn0cZlNw/formResponse" 
+    method="POST" 
+    target="_self"
+  >
+    <!-- Скрытое поле для token -->
+    <input type="hidden" name="entry.1143854402" id="tokenField">
 
-document.getElementById('presenceForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const userText = e.target.userText.value;
+    <!-- Поле для текста -->
+    <input type="text" name="entry.1350749642" placeholder="Ваш текст" required>
 
-  try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbyFdlNTRrSZntH47IuDMG7Q-VRquOfJ9M4L_O28ldiHLLKXz035Ht3pZfgbwP3KmUZXwA/exec', {
-      method: 'POST',
-      body: JSON.stringify({ token, userText }),
-      headers: { 'Content-Type': 'application/json' }
-    });
+    <button type="submit">Отправить</button>
+  </form>
 
-    const result = await response.json();
-    document.getElementById('status').textContent = result.status;
-    e.target.reset();
-  } catch(err) {
-    document.getElementById('status').textContent = 'Ошибка при отправке';
-    console.error(err);
-  }
-});
-</script>
+  <script>
+    // Берём ?token=... из URL и подставляем в скрытое поле
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("tokenField").value = params.get("token") || "";
+  </script>
 </body>
 </html>
