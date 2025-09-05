@@ -5,15 +5,36 @@
   <title>Presence Form</title>
   <style>
     body {
-      font-family: sans-serif;
-      max-width: 500px;
+      font-family: Arial, sans-serif;
+      max-width: 400px;
       margin: 50px auto;
-      text-align: center;
+      padding: 20px;
     }
-    input, button {
-      margin: 10px 0;
-      padding: 8px;
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
       width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0056b3;
     }
   </style>
 </head>
@@ -28,9 +49,11 @@
     <!-- Скрытое поле для token -->
     <input type="hidden" name="entry.1143854402" id="tokenField">
 
-    <!-- Поле для текста -->
-    <input type="text" name="entry.1350749642" placeholder="Ваш текст" required>
-
+    <div class="form-group">
+      <label for="textInput">Текст:</label>
+      <input id="textInput" type="text" name="entry.1350749642" placeholder="Ваш текст" required>
+    </div>
+    
     <button type="submit">Отправить</button>
   </form>
 
