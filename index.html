@@ -193,9 +193,15 @@
   </div>
 
   <script>
-    // Берём ?token=... из URL и подставляем в скрытое поле
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById("tokenField").value = params.get("token") || "";
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+
+  if (token) {
+    fetch("https://cool-name.trycloudflare.com/api/generate", { method: "POST" })
+      .then(r => console.log("QR обновлён на сервере через Cloudflare Tunnel"));
+  }
   </script>
+
+  
 </body>
 </html>
